@@ -213,10 +213,20 @@
     margin-bottom: 1.5rem;
   }
 
+  .opciones {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
   .opcion-btn {
     padding: 0.8rem 1.5rem;
     font-size: 1.1rem;
     min-width: 100px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .resultados {
@@ -268,13 +278,19 @@
   }
 
   .opciones {
+    flex-direction: column;
+    width: 100%;
     gap: 0.5rem;
+    align-items: stretch;
   }
 
   .opcion-btn {
     padding: 0.7rem 1rem;
     font-size: 1rem;
     min-width: 80px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .resultado {
