@@ -13,7 +13,7 @@ export const preguntas: Questions[] = [
       {
         texto:
           "Memoria, dispositivos de entrada/salida, unidad central de procesos, estructura de interconexión.",
-        esCorrecta: false,
+        esCorrecta: true,
       },
       {
         texto:
@@ -28,7 +28,7 @@ export const preguntas: Questions[] = [
       {
         texto:
           "Unidad central de procesos, estructura de interconexión, memoria, dispositivos de E/S.",
-        esCorrecta: true,
+        esCorrecta: false,
       },
     ],
   },
@@ -66,8 +66,8 @@ export const preguntas: Questions[] = [
     opciones: [
       { texto: "RIMM.", esCorrecta: false },
       { texto: "SRAM.", esCorrecta: false },
-      { texto: "DRAM.", esCorrecta: true },
-      { texto: "SDRAM.", esCorrecta: false },
+      { texto: "DRAM.", esCorrecta: false },
+      { texto: "SDRAM.", esCorrecta: true },
     ],
   },
   {
@@ -113,8 +113,8 @@ export const preguntas: Questions[] = [
     pregunta:
       "El controlador DMA necesita tener el control del bus para transferir datos. La técnica que por su funcionamiento se conoce como 'parada del procesador' es:",
     opciones: [
-      { texto: "Robo de ciclo.", esCorrecta: true },
-      { texto: "Ráfagas.", esCorrecta: false },
+      { texto: "Robo de ciclo.", esCorrecta: false },
+      { texto: "Ráfagas.", esCorrecta: true },
       { texto: "Transparente.", esCorrecta: false },
       { texto: "Scatter gather.", esCorrecta: false },
     ],
