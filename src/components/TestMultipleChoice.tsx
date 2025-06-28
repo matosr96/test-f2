@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { preguntas } from "../data/organizacion"
 import type { Respuesta, PreguntaMultipleChoice } from "../types"
-import styles from "./TestComponent.module.css"
+import "./TestComponent.css"
 
 interface TestMultipleChoiceProps {
   tipoTest: "fisica" | "organizacion"
@@ -92,37 +92,37 @@ const TestMultipleChoice: React.FC<TestMultipleChoiceProps> = ({ tipoTest, onVol
 
   if (testCompletado) {
     return (
-      <div className={styles.container}>
-        <div className={styles.resultadosCard}>
-          <div className={styles.resultadosHeader}>
-            <div className={styles.iconoCompletado}>🎉</div>
-            <h2 className={styles.tituloCompletado}>
+      <div className="container">
+        <div className="resultadosCard">
+          <div className="resultadosHeader">
+            <div className="iconoCompletado">🎉</div>
+            <h2 className="tituloCompletado">
               Test de {tipoTest === "fisica" ? "Física" : "Organización"} Completado
             </h2>
           </div>
 
-          <div className={styles.estadisticas}>
-            <div className={styles.estadistica}>
-              <div className={styles.numeroEstadistica}>{respuestasCorrectas}</div>
-              <div className={styles.labelEstadistica}>Correctas</div>
+          <div className="estadisticas">
+            <div className="estadistica">
+              <div className="numeroEstadistica">{respuestasCorrectas}</div>
+              <div className="labelEstadistica">Correctas</div>
             </div>
-            <div className={styles.estadistica}>
-              <div className={styles.numeroEstadistica}>{respuestasIncorrectas}</div>
-              <div className={styles.labelEstadistica}>Incorrectas</div>
+            <div className="estadistica">
+              <div className="numeroEstadistica">{respuestasIncorrectas}</div>
+              <div className="labelEstadistica">Incorrectas</div>
             </div>
-            <div className={styles.estadistica}>
-              <div className={styles.numeroEstadistica}>
+            <div className="estadistica">
+              <div className="numeroEstadistica">
                 {((respuestasCorrectas / preguntasAleatorias.length) * 100).toFixed(0)}%
               </div>
-              <div className={styles.labelEstadistica}>Aciertos</div>
+              <div className="labelEstadistica">Aciertos</div>
             </div>
           </div>
 
-          <div className={styles.botonesResultado}>
-            <button onClick={reiniciarTest} className={styles.botonReiniciar}>
+          <div className="botonesResultado">
+            <button onClick={reiniciarTest} className="botonReiniciar">
               Reiniciar Test
             </button>
-            <button onClick={onVolver} className={styles.botonVolver}>
+            <button onClick={onVolver} className="botonVolver">
               Volver al Menú
             </button>
           </div>
@@ -133,9 +133,9 @@ const TestMultipleChoice: React.FC<TestMultipleChoiceProps> = ({ tipoTest, onVol
 
   if (preguntasAleatorias.length === 0) {
     return (
-      <div className={styles.container}>
-        <div className={styles.cargando}>
-          <div className={styles.spinner}></div>
+      <div className="container">
+        <div className="cargando">
+          <div className="spinner"></div>
           <p>Cargando preguntas...</p>
         </div>
       </div>
@@ -143,39 +143,39 @@ const TestMultipleChoice: React.FC<TestMultipleChoiceProps> = ({ tipoTest, onVol
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <button onClick={onVolver} className={styles.botonVolver}>
+    <div className="container">
+      <div className="header">
+        <button onClick={onVolver} className="botonVolver">
           ← Volver al Menú
         </button>
-        <h1 className={styles.titulo}>Test de {tipoTest === "fisica" ? "Física" : "Organización"}</h1>
-        <div className={styles.tiempoRestante}>{formatearTiempo(tiempoRestante)}</div>
+        <h1 className="titulo">Test de {tipoTest === "fisica" ? "Física" : "Organización"}</h1>
+        <div className="tiempoRestante">{formatearTiempo(tiempoRestante)}</div>
       </div>
 
-      <div className={styles.progreso}>
-        <div className={styles.barraProgreso}>
+      <div className="progreso">
+        <div className="barraProgreso">
           <div
-            className={styles.progresoFill}
+            className="progresoFill"
             style={{ width: `${((preguntaActual + 1) / preguntasAleatorias.length) * 100}%` }}
           ></div>
         </div>
-        <span className={styles.textoProgreso}>
+        <span className="textoProgreso">
           Pregunta {preguntaActual + 1} de {preguntasAleatorias.length}
         </span>
       </div>
 
-      <div className={styles.preguntaCard}>
-        <h3 className={styles.pregunta}>{preguntasAleatorias[preguntaActual].pregunta}</h3>
+      <div className="preguntaCard">
+        <h3 className="pregunta">{preguntasAleatorias[preguntaActual].pregunta}</h3>
 
-        <div className={styles.opciones}>
+        <div className="opciones">
           {preguntasAleatorias[preguntaActual].opciones.map((opcion, index) => (
             <button
               key={index}
               onClick={() => manejarRespuesta(opcion.texto)}
               disabled={mostrarResultado}
-              className={`${styles.opcionBtn} ${mostrarResultado ? styles.disabled : ""}`}
+              className={`opcionBtn ${mostrarResultado ? "disabled" : ""}`}
             >
-              <span className={styles.letraOpcion}>{String.fromCharCode(65 + index)}</span>
+              <span className="letraOpcion">{String.fromCharCode(65 + index)}</span>
               {opcion.texto}
             </button>
           ))}
@@ -183,9 +183,9 @@ const TestMultipleChoice: React.FC<TestMultipleChoiceProps> = ({ tipoTest, onVol
 
         {mostrarResultado && (
           <div
-            className={`${styles.resultado} ${respuestas[respuestas.length - 1].esCorrecta ? styles.correcto : styles.incorrecto}`}
+            className={`resultado ${respuestas[respuestas.length - 1].esCorrecta ? "correcto" : "incorrecto"}`}
           >
-            <div className={styles.iconoResultado}>{respuestas[respuestas.length - 1].esCorrecta ? "✓" : "✗"}</div>
+            <div className="iconoResultado">{respuestas[respuestas.length - 1].esCorrecta ? "✓" : "✗"}</div>
             <span>{respuestas[respuestas.length - 1].esCorrecta ? "¡Correcto!" : "Incorrecto"}</span>
           </div>
         )}
