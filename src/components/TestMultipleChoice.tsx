@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { preguntas } from '../data/preguntas';
-import type { Respuesta, Pregunta } from '../types';
+import { preguntas } from '../data/organizacion';
+import type { Respuesta, PreguntaMultipleChoice } from '../types';
 import './TestComponent.css';
 
-interface TestComponentProps {
+interface TestMultipleChoiceProps {
+  tipoTest: 'fisica' | 'organizacion';
   onVolver: () => void;
 }
 
-const TestComponent: React.FC<TestComponentProps> = ({ onVolver }) => {
-  const [preguntasAleatorias, setPreguntasAleatorias] = useState<Pregunta[]>([]);
+const TestMultipleChoice: React.FC<TestMultipleChoiceProps> = ({ tipoTest, onVolver }) => {
+  const [preguntasAleatorias, setPreguntasAleatorias] = useState<PreguntaMultipleChoice[]>([]);
   const [preguntaActual, setPreguntaActual] = useState<number>(0);
   const [respuestas, setRespuestas] = useState<Respuesta[]>([]);
   const [mostrarResultado, setMostrarResultado] = useState<boolean>(false);
@@ -16,7 +17,7 @@ const TestComponent: React.FC<TestComponentProps> = ({ onVolver }) => {
   const [tiempoRestante, setTiempoRestante] = useState<number>(1800); // 30 minutos en segundos
 
   // Función para aleatorizar el array de preguntas
-  const aleatorizarPreguntas = (preguntas: Pregunta[]): Pregunta[] => {
+  const aleatorizarPreguntas = (preguntas: PreguntaMultipleChoice[]): PreguntaMultipleChoice[] => {
     const preguntasCopia = [...preguntas];
     for (let i = preguntasCopia.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -42,9 +43,12 @@ const TestComponent: React.FC<TestComponentProps> = ({ onVolver }) => {
   }, [tiempoRestante, testCompletado]);
 
   const manejarRespuesta = (respuesta: string): void => {
-    const esCorrecta = respuesta === preguntasAleatorias[preguntaActual].respuestaCorrecta;
+    const preguntaActualData = preguntasAleatorias[preguntaActual];
+    const opcionSeleccionada = preguntaActualData.opciones.find(opcion => opcion.texto === respuesta);
+    const esCorrecta = opcionSeleccionada?.esCorrecta || false;
+    
     setRespuestas([...respuestas, { 
-      pregunta: preguntasAleatorias[preguntaActual].pregunta,
+      pregunta: preguntaActualData.pregunta,
       respuesta,
       esCorrecta
     }]);
@@ -85,7 +89,7 @@ const TestComponent: React.FC<TestComponentProps> = ({ onVolver }) => {
   if (testCompletado) {
     return (
       <div className="test-container">
-        <h2>Test de Física Completado</h2>
+        <h2>Test de {tipoTest === 'fisica' ? 'Física' : 'Organización'} Completado</h2>
         <div className="resultados">
           <p>Respuestas correctas: {respuestasCorrectas}</p>
           <p>Respuestas incorrectas: {respuestasIncorrectas}</p>
@@ -114,7 +118,7 @@ const TestComponent: React.FC<TestComponentProps> = ({ onVolver }) => {
         <button onClick={onVolver} className="volver-menu-btn">
           ← Volver al Menú
         </button>
-        <h2>Test de Física</h2>
+        <h2>Test de {tipoTest === 'fisica' ? 'Física' : 'Organización'}</h2>
       </div>
       <div className="tiempo-restante">
         Tiempo restante: {formatearTiempo(tiempoRestante)}
@@ -128,11 +132,11 @@ const TestComponent: React.FC<TestComponentProps> = ({ onVolver }) => {
           {preguntasAleatorias[preguntaActual].opciones.map((opcion, index) => (
             <button
               key={index}
-              onClick={() => manejarRespuesta(opcion)}
+              onClick={() => manejarRespuesta(opcion.texto)}
               disabled={mostrarResultado}
               className={`opcion-btn ${mostrarResultado ? 'disabled' : ''}`}
             >
-              {opcion}
+              {opcion.texto}
             </button>
           ))}
         </div>
@@ -146,4 +150,4 @@ const TestComponent: React.FC<TestComponentProps> = ({ onVolver }) => {
   );
 };
 
-export default TestComponent; 
+export default TestMultipleChoice; 
